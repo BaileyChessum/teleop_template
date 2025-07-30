@@ -55,7 +55,7 @@
         name: "locked"
         value: true
       unlock:
-        on: "unlock/down"
+        on: "unlock/up"
         type: "set_button"
         name: "locked"
         value: false

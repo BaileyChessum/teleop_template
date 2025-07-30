@@ -14,7 +14,9 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-This is a template repository for creating a package to contain launch and parameter files for running a teleop_node from [teleop_modular](https://github.com/BaileyChessum/teleop_modular), the generic framework for multimodal teleoperation in ROS2. You would use this as the basis for creating a teleoperation system for your robot.
+This is a template repository for creating a package to contain launch and parameter files for running a teleop_node 
+from [teleop_modular](https://github.com/BaileyChessum/teleop_modular), the generic framework for multimodal teleoperation in ROS2. You would use this as the basis 
+for creating a teleoperation system for your robot.
 
 Out of the box, this package drives a turtlesim with a gamepad.
 
@@ -30,11 +32,13 @@ cookiecutter https://github.com/BaileyChessum/teleop_template.git
 Then follow the prompts:
 
 ```
-  [1/6] project_name (example_control_mode): example_control_mode
-  [2/6] control_mode_class_name (ExampleControlMode): ExampleControlMode
-  [3/6] author_name (TODO: Author Name): Bailey Chessum
-  [4/6] author_email (author@example.com): bailey.chessum1@gmail.com
-  [5/6] license (TODO: License Definition): Apache-2.0
-  [6/6] description (A custom teleop_modular control mode.): An example teleop_modular control mode.
+  [1/6] project_name (teleop_turtle): teleop_turtle
+  [2/6] author_name (TODO: Author Name): Bailey Chessum
+  [3/6] author_email (author@example.com): bailey.chessum1@gmail.com
+  [4/6] license (TODO: License Definition): Apache-2.0
+  [5/6] description (A teleop package for a turtlesim turtle.): A teleop package for a turtlesim turtle.
 ```
+
+I recommend choosing your `project_name` to be `teleop_` + the name of the payload your are teleoperating. This will 
+determine the name given to your `teleop_node` instance.
 

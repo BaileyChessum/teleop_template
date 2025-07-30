@@ -19,30 +19,54 @@
 
     control_modes:
       names: [
+        # First in the list gets activated at startup
         "normal_mode",
         "turbo_mode"
       ]
 
       # Declare types for the modes
       normal_mode:
-        type: "joint_space_control_mode/JointSpaceControlMode"
+        type: "teleop_modular_twist/TwistControlMode"
       turbo_mode:
         type: "teleop_modular_twist/TwistControlMode"
 
     commands:
       names: [
         "enter_turbo_mode",
-        "enter_normal_mode"
+        "enter_normal_mode",
+        "lock",
+        "unlock",
+        "log_locked",
+        "log_unlocked"
       ]
 
       enter_turbo_mode:
         on: "turbo_mode/down"
-        type: "activate_control_mode"
-        name: "turbo_mode"
+        type: "switch_control_mode"
+        to: "turbo_mode"
       enter_normal_mode:
         on: "turbo_mode/up"
-        type: "activate_control_mode"
-        name: "normal_mode"
+        type: "switch_control_mode"
+        to: "normal_mode"
+      lock:
+        on: "lock/down"
+        # on_any: ["lock/down", "start"]
+        type: "set_button"
+        name: "locked"
+        value: true
+      unlock:
+        on: "unlock/down"
+        type: "set_button"
+        name: "locked"
+        value: false
+      log_locked:
+        on: "locked/down"
+        type: "log"
+        message: "Locked"
+      log_unlocked:
+        on: "locked/down"
+        type: "log"
+        message: "Unlocked"
 
 
 game_controller_source:
@@ -88,38 +112,50 @@ game_controller_source:
       axes:
         linear:
           x:
-            from: "LEFTX"
-          y:
             from: "LEFTY"
         angular:
           z:
             from: "RIGHTX"
+        speed:
+          from: "TRIGGERRIGHT"
+          invert: true
 
       buttons:
         turbo_mode:
           from: "RIGHTSHOULDER"
+        lock:
+          from: "GUIDE"
+        unlock:
+          from: "START"
 
 
 normal_mode:
   ros__parameters:
     topic: "/turtle1/cmd_vel"
+    # stamped_topic: "/some_stamped_topic"
+    qos: 10
+
     use_speed_input: false
 
     scale:
       linear:
         x: 1.0
       angular:
-        z: 1.0
+        z: 3.14
 
 
 turbo_mode:
   ros__parameters:
     topic: "/turtle1/cmd_vel"
+    # stamped_topic: "/some_stamped_topic"
+    qos: 10
+
     use_speed_input: false
 
     scale:
       linear:
-        x: 4.0
+        all: 4.0
       angular:
-        z: 4.0
+        z: 3.14
+        all: 2.0
 
